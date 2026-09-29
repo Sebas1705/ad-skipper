@@ -1,0 +1,11 @@
+schema_version: 1
+template:
+  name: browser-extension-wxt-svelte
+  source: "github.com/Templetry/browser-extension@main/wxt-svelte"
+  commit: 21a2a7857b43254625d6985cdbff17ea54905aaf
+variables:
+  project_name: Ad Skipper
+features:
+  content_script: true
+  options: false
+  vitest: true
