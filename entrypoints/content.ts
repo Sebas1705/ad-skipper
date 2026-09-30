@@ -8,6 +8,7 @@ export default defineContentScript({
   runAt: "document_idle",
   async main() {
     let on = await enabled.getValue();
+    console.log("Ad Skipper: active", { enabled: on });
     enabled.watch((value) => (on = value));
 
     // The Skip button appears a few seconds into an ad, inside a page that is
@@ -17,7 +18,10 @@ export default defineContentScript({
     const check = () => {
       scheduled = false;
       if (!on) return;
-      if (skipIfPossible(document)) void skipped.getValue().then((n) => skipped.setValue(n + 1));
+      if (skipIfPossible(document)) {
+        console.log("Ad Skipper: pressed the Skip button");
+        void skipped.getValue().then((n) => skipped.setValue(n + 1));
+      }
     };
 
     new MutationObserver(() => {

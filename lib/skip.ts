@@ -39,10 +39,27 @@ export function findSkipButton(root: ParentNode): HTMLElement | null {
   return null;
 }
 
-/** Clicks the Skip button if there is one. Returns whether it did. */
+/** Buttons already pressed, so one that lingers on screen is pressed once. */
+const pressed = new WeakSet<object>();
+
+/**
+ * Presses the button the way a pointer would: the whole down/up sequence and
+ * then the click, in case the player listens to more than `click`.
+ */
+export function press(button: HTMLElement): void {
+  if (typeof MouseEvent !== "undefined") {
+    for (const type of ["pointerdown", "mousedown", "pointerup", "mouseup"]) {
+      button.dispatchEvent(new MouseEvent(type, { bubbles: true, cancelable: true, view: window }));
+    }
+  }
+  button.click();
+}
+
+/** Presses the Skip button if there is a new one. Returns whether it did. */
 export function skipIfPossible(root: ParentNode): boolean {
   const button = findSkipButton(root);
-  if (!button) return false;
-  button.click();
+  if (!button || pressed.has(button)) return false;
+  pressed.add(button);
+  press(button);
   return true;
 }

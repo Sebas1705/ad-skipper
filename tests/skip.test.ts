@@ -1,10 +1,15 @@
 import { expect, test, vi } from "vitest";
 import { findSkipButton, isVisible, skipIfPossible, SKIP_SELECTORS } from "../lib/skip";
 
-type Fake = { offsetWidth: number; offsetHeight: number; click: () => void };
+type Fake = {
+  offsetWidth: number;
+  offsetHeight: number;
+  click: () => void;
+  dispatchEvent: () => void;
+};
 
-const shown = (): Fake => ({ offsetWidth: 80, offsetHeight: 30, click: vi.fn() });
-const hidden = (): Fake => ({ offsetWidth: 0, offsetHeight: 0, click: vi.fn() });
+const shown = (): Fake => ({ offsetWidth: 80, offsetHeight: 30, click: vi.fn(), dispatchEvent: vi.fn() });
+const hidden = (): Fake => ({ offsetWidth: 0, offsetHeight: 0, click: vi.fn(), dispatchEvent: vi.fn() });
 
 /** A page that has these elements under these selectors, and nothing else. */
 function page(bySelector: Record<string, Fake[]>): ParentNode {
@@ -48,4 +53,12 @@ test("recognises every selector on the list", () => {
     const button = shown();
     expect(skipIfPossible(page({ [selector]: [button] }))).toBe(true);
   }
+});
+
+test("presses a button that stays on screen only once", () => {
+  const button = shown();
+  const ad = page({ [SKIP_SELECTORS[0]!]: [button] });
+  expect(skipIfPossible(ad)).toBe(true);
+  expect(skipIfPossible(ad)).toBe(false);
+  expect(button.click).toHaveBeenCalledOnce();
 });
