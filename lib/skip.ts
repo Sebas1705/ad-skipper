@@ -8,6 +8,13 @@ export const SKIP_SELECTORS = [
   ".ytp-ad-skip-button-modern",
   ".ytp-ad-skip-button",
   ".ytp-ad-skip-button-container button",
+  ".ytp-skip-ad button",
+  // Name families and ids rather than exact class names, so a redesign that
+  // keeps "skip-button" in the name still works. None of these depend on the
+  // button's label, which the player translates.
+  'button[class*="skip-button"]',
+  'button[id^="skip-button"]',
+  '[id^="skip-button"] button',
 ];
 
 type Box = { offsetWidth: number; offsetHeight: number };
