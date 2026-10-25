@@ -1,5 +1,5 @@
 import { expect, test, vi } from "vitest";
-import { findSkipButton, isVisible, skipIfPossible, SKIP_SELECTORS } from "../lib/skip";
+import { findSkipButton, isVisible, press, skipIfPossible, SKIP_SELECTORS } from "../lib/skip";
 
 type Fake = {
   offsetWidth: number;
@@ -60,5 +60,55 @@ test("presses a button that stays on screen only once", () => {
   const ad = page({ [SKIP_SELECTORS[0]!]: [button] });
   expect(skipIfPossible(ad)).toBe(true);
   expect(skipIfPossible(ad)).toBe(false);
+  expect(button.click).toHaveBeenCalledOnce();
+});
+
+test("presses the button of the next ad once the first one is gone", () => {
+  const first = shown();
+  const second = shown();
+  expect(skipIfPossible(page({ [SKIP_SELECTORS[0]!]: [first] }))).toBe(true);
+  expect(skipIfPossible(page({ [SKIP_SELECTORS[0]!]: [second] }))).toBe(true);
+  expect(first.click).toHaveBeenCalledOnce();
+  expect(second.click).toHaveBeenCalledOnce();
+});
+
+test("falls through to a later selector when the earlier ones match nothing", () => {
+  const last = SKIP_SELECTORS[SKIP_SELECTORS.length - 1]!;
+  const button = shown();
+  expect(findSkipButton(page({ [last]: [button] }))).toBe(button);
+});
+
+test("prefers the first selector on the list when several match", () => {
+  const modern = shown();
+  const legacy = shown();
+  const ad = page({ [SKIP_SELECTORS[0]!]: [modern], [SKIP_SELECTORS[1]!]: [legacy] });
+  expect(findSkipButton(ad)).toBe(modern);
+});
+
+test("presses with the full pointer sequence before the click", () => {
+  const seen: string[] = [];
+  vi.stubGlobal("window", {});
+  vi.stubGlobal(
+    "MouseEvent",
+    class {
+      type: string;
+      constructor(type: string) {
+        this.type = type;
+      }
+    },
+  );
+  const button = {
+    dispatchEvent: (e: { type: string }) => seen.push(e.type),
+    click: () => seen.push("click"),
+  } as unknown as HTMLElement;
+  press(button);
+  vi.unstubAllGlobals();
+  expect(seen).toEqual(["pointerdown", "mousedown", "pointerup", "mouseup", "click"]);
+});
+
+test("still clicks when MouseEvent is not available", () => {
+  const button = shown();
+  press(button as unknown as HTMLElement);
+  expect(button.dispatchEvent).not.toHaveBeenCalled();
   expect(button.click).toHaveBeenCalledOnce();
 });
