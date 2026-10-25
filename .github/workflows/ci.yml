@@ -38,3 +38,4 @@ jobs:
           name: ad-skipper-chrome
           path: .output/*.zip
           if-no-files-found: error
+          include-hidden-files: true # .output is a dotdir, excluded by default
