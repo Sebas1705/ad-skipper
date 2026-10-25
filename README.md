@@ -1,5 +1,7 @@
 # AdSkipper
 
+[![CI](https://github.com/Sebas1705/ad-skipper/actions/workflows/ci.yml/badge.svg)](https://github.com/Sebas1705/ad-skipper/actions/workflows/ci.yml)
+
 Chromium extension (Manifest V3) that clicks the **Skip** button on video ads as soon as the player offers it. Built with [Templetry](https://github.com/Templetry) (`browser-extension/wxt-svelte`): [WXT](https://wxt.dev) + Svelte 5 + TypeScript.
 
 It only clicks the button the player itself shows. It does not hide, block or fast-forward ads, so an ad that cannot be skipped plays normally.
