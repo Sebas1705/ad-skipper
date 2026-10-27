@@ -1,0 +1,11 @@
+{
+  "accent": "#FF3E00",
+  "icon_alt": {
+    "en": "AdSkipper extension icon: a plain orange-red rounded square",
+    "es": "Icono de la extensión AdSkipper: un cuadrado redondeado naranja rojizo liso"
+  },
+  "banner_alt": {
+    "en": "AdSkipper banner: the extension icon, the tagline \"Browser extension that skips video ads for you\" and the stack (TypeScript, Svelte, WXT, Browser Extension, Vitest)",
+    "es": "Banner de AdSkipper: el icono de la extensión, el lema \"Extensión de navegador que salta los anuncios de vídeo\" y el stack (TypeScript, Svelte, WXT, Browser Extension, Vitest)"
+  }
+}
