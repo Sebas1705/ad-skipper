@@ -1,0 +1,10 @@
+<!-- Ad Skipper icon: a white "skip forward" glyph (two triangles and a bar) on the brand orange-red.
+     Source for public/icon/{32,48,96,128}.png and the 512 px render. 16 px uses icon-16.svg. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <rect width="128" height="128" rx="28" fill="#FF3E00"/>
+  <g fill="#FFFFFF" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round">
+    <path d="M26 40 L54 64 L26 88 Z"/>
+    <path d="M55 40 L83 64 L55 88 Z"/>
+    <rect x="97" y="40" width="4" height="48"/>
+  </g>
+</svg>
