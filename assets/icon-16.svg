@@ -1,0 +1,10 @@
+<!-- Ad Skipper icon, 16 px variant: same glyph snapped to the pixel grid with a thicker bar,
+     so it stays crisp in the toolbar. Source for public/icon/16.png. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <rect width="16" height="16" rx="3.5" fill="#FF3E00"/>
+  <g fill="#FFFFFF">
+    <path d="M3 4 L7 8 L3 12 Z"/>
+    <path d="M7 4 L11 8 L7 12 Z"/>
+    <rect x="12" y="4" width="2" height="8"/>
+  </g>
+</svg>

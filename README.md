@@ -24,5 +24,6 @@ To try a build by hand: `chrome://extensions` → Developer mode → **Load unpa
 | `lib/skip.ts` | The selectors and the find-and-click logic. **When it stops working, start here**: the player's class names change |
 | `lib/settings.ts` | Typed storage: the on/off switch and the skipped counter |
 | `entrypoints/popup/` | The toolbar popup: switch and counter |
+| `assets/icon.svg`, `assets/icon-16.svg` | Icon sources. `public/icon/*.png` are rendered from them (16 px from the pixel-snapped `icon-16.svg`) |
 
 Permissions: `storage` only. The content script runs only on `https://www.youtube.com/*`.
